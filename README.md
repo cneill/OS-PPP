@@ -14,16 +14,17 @@ __Usage:__
 __Example Output:__
 
 ```
+
 $ ./ppp.py generate cneill
 
-Activity since  2016-05-18 11:26:54
+Activity since  2016-05-19 11:53:38
 
-Merged change requests owned by Charles Neill
+Merged change requests owned by Charles Neill:
 
-- Adding CAFE HTTP client install as tox docs step
-	URL: https://review.openstack.org/#/c/317768
-	Last updated:  2016-05-18 11:29:13
 
+Lines: +0 -0
+
+================================================================================
 Merged changes code reviewed by Charles Neill:
 
 - Fix typo in authenticate_v3 parameter
@@ -50,19 +51,21 @@ Merged changes code reviewed by Charles Neill:
 - Added CORS Header testcase
 	URL: https://review.openstack.org/#/c/317147
 	Last updated:  2016-05-19 16:11:34
-- Moved extend_class() function
-	URL: https://review.openstack.org/#/c/318359
-	Last updated:  2016-05-18 18:00:09
-- Fixed payload truncating
-	URL: https://review.openstack.org/#/c/318243
-	Last updated:  2016-05-18 13:55:20
-- Added String Validation Checks
-	URL: https://review.openstack.org/#/c/318186
-	Last updated:  2016-05-18 12:55:11
 
+Lines: +256 -1226
+
+================================================================================
 Recent open change requests from Charles Neill:
 
 - Add exception/signal handling to HTTP client
 	URL: https://review.openstack.org/#/c/317633
 	Last updated:  2016-05-19 18:49:21
+
+Lines: +300 -13
+
+================================================================================
+Total merged CRs: 0
+Total code reviews: 8
+Total open CRs: 1
+Total merged line counts: +256 -1226
 ```
