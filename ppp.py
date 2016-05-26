@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""PPP Generator :)
+"""OpenStack PPP Generator :)
 
 Usage:
     ./ppp.py generate <username>
@@ -25,13 +25,14 @@ import requests
 p = pprint.PrettyPrinter(indent=2)
 HERE = tz.tzlocal()
 UTC = tz.gettz("UTC")
+SEP = "=" * 80
 
 
 class LPAPI(object):
 
     project_name = "openstack/syntribos"
     base_url = "https://review.openstack.org"
-    default_delta = datetime.timedelta(weeks=1, hours=8)
+    default_delta = datetime.timedelta(weeks=1)
 
     project_changes = []
     merged_changes = []
@@ -159,23 +160,65 @@ def print_local_time(time_str, pat="%Y-%m-%d %H:%M:%S"):
 
 
 def generate_PPP(LP):
+    counts = {
+        "merged_crs": 0,
+        "code_reviews": 0,
+        "open_crs": 0
+    }
+    lines = {
+        "merged_cr_insertion": 0,
+        "merged_cr_deletion": 0,
+        "code_review_insertion": 0,
+        "code_review_deletion": 0,
+        "open_cr_insertion": 0,
+        "open_cr_deletion": 0
+    }
+
     print "Activity since ",
     print_local_time(LP.after.strftime("%Y-%m-%d %H:%M:%S"))
     print
-    print "Merged change requests owned by {0}\n".format(LP.user_obj["name"])
+    print "Merged change requests owned by {0}:\n".format(LP.user_obj["name"])
     for change in LP.merged_changes:
         if LP.owns(change):
             LP.print_change(change)
-    print
+            counts["merged_crs"] += 1
+            lines["merged_cr_insertion"] += change["insertions"]
+            lines["merged_cr_deletion"] += change["deletions"]
+    print "\nLines: +{0} -{1}\n".format(
+        lines["merged_cr_insertion"], lines["merged_cr_deletion"])
+
+    print SEP
+
     print "Merged changes code reviewed by {0}:\n".format(LP.user_obj["name"])
     for change in LP.merged_changes:
         if LP.did_code_review(change):
             LP.print_change(change)
-    print
+            counts["code_reviews"] += 1
+            lines["code_review_insertion"] += change["insertions"]
+            lines["code_review_deletion"] += change["deletions"]
+    print "\nLines: +{0} -{1}\n".format(
+        lines["code_review_insertion"], lines["code_review_deletion"])
+
+    print SEP
+
     print "Recent open change requests from {0}:\n".format(LP.user_obj["name"])
     for change in LP.open_changes:
         if LP.owns(change):
             LP.print_change(change)
+            counts["open_crs"] += 1
+            lines["open_cr_insertion"] += change["insertions"]
+            lines["open_cr_deletion"] += change["deletions"]
+    print "\nLines: +{0} -{1}\n".format(
+        lines["open_cr_insertion"], lines["open_cr_deletion"])
+
+    print SEP
+
+    print "Total merged CRs: {0}".format(counts["merged_crs"])
+    print "Total code reviews: {0}".format(counts["code_reviews"])
+    print "Total open CRs: {0}".format(counts["open_crs"])
+    total_insertions = lines["merged_cr_insertion"] + lines["code_review_insertion"]
+    total_deletions = lines["merged_cr_deletion"] + lines["code_review_deletion"]
+    print "Total merged line counts: +{0} -{1}".format(total_insertions, total_deletions)
 
 
 def main(args):
