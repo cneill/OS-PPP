@@ -25,10 +25,9 @@ Options:
 __Example Output:__
 
 ```
-
 $ ./ppp.py generate cneill
 
-Activity since  2016-05-19 11:53:38
+Activity on openstack/syntribos since  2016-05-19 12:46:10
 
 Merged change requests owned by Charles Neill:
 
@@ -78,5 +77,6 @@ Lines: +300 -13
 Total merged CRs: 0
 Total code reviews: 8
 Total open CRs: 1
-Total merged line counts: +256 -1226
+Total merged lines: +256 -1226
+Total unmerged lines: +300 -13
 ```
