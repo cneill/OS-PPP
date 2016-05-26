@@ -2,11 +2,12 @@
 """OpenStack PPP Generator :)
 
 Usage:
-    ./ppp.py generate <username>
+    ./ppp.py generate <username> [<project>]
 
 Options:
     generate       Generate a PPP email from the last week
     <username>     OpenStack username
+    <project>      OpenStack project [default: openstack/syntribos]
     --help         Display this help message
 """
 
@@ -28,7 +29,7 @@ UTC = tz.gettz("UTC")
 SEP = "=" * 80
 
 
-class LPAPI(object):
+class OSAPI(object):
 
     project_name = "openstack/syntribos"
     base_url = "https://review.openstack.org"
@@ -159,7 +160,7 @@ def print_local_time(time_str, pat="%Y-%m-%d %H:%M:%S"):
     print d.strftime(pat)
 
 
-def generate_PPP(LP):
+def generate_PPP(OSA):
     counts = {
         "merged_crs": 0,
         "code_reviews": 0,
@@ -175,12 +176,12 @@ def generate_PPP(LP):
     }
 
     print "Activity since ",
-    print_local_time(LP.after.strftime("%Y-%m-%d %H:%M:%S"))
+    print_local_time(OSA.after.strftime("%Y-%m-%d %H:%M:%S"))
     print
-    print "Merged change requests owned by {0}:\n".format(LP.user_obj["name"])
-    for change in LP.merged_changes:
-        if LP.owns(change):
-            LP.print_change(change)
+    print "Merged change requests owned by {0}:\n".format(OSA.user_obj["name"])
+    for change in OSA.merged_changes:
+        if OSA.owns(change):
+            OSA.print_change(change)
             counts["merged_crs"] += 1
             lines["merged_cr_insertion"] += change["insertions"]
             lines["merged_cr_deletion"] += change["deletions"]
@@ -189,10 +190,10 @@ def generate_PPP(LP):
 
     print SEP
 
-    print "Merged changes code reviewed by {0}:\n".format(LP.user_obj["name"])
-    for change in LP.merged_changes:
-        if LP.did_code_review(change):
-            LP.print_change(change)
+    print "Merged changes code reviewed by {0}:\n".format(OSA.user_obj["name"])
+    for change in OSA.merged_changes:
+        if OSA.did_code_review(change):
+            OSA.print_change(change)
             counts["code_reviews"] += 1
             lines["code_review_insertion"] += change["insertions"]
             lines["code_review_deletion"] += change["deletions"]
@@ -201,10 +202,10 @@ def generate_PPP(LP):
 
     print SEP
 
-    print "Recent open change requests from {0}:\n".format(LP.user_obj["name"])
-    for change in LP.open_changes:
-        if LP.owns(change):
-            LP.print_change(change)
+    print "Recent open change requests from {0}:\n".format(OSA.user_obj["name"])
+    for change in OSA.open_changes:
+        if OSA.owns(change):
+            OSA.print_change(change)
             counts["open_crs"] += 1
             lines["open_cr_insertion"] += change["insertions"]
             lines["open_cr_deletion"] += change["deletions"]
@@ -223,9 +224,12 @@ def generate_PPP(LP):
 
 def main(args):
     if args['generate'] and args['<username>']:
-        username = args['<username>']
-        LP = LPAPI(username=username)
-        generate_PPP(LP)
+        if args['<project>']:
+            OSA = OSAPI(
+                username=args['<username>'], project_name=args['<project>'])
+        else:
+            OSA = OSAPI(username=args['<username>'])
+        generate_PPP(OSA)
 
 if __name__ == '__main__':
     args = docopt(__doc__)
