@@ -25,7 +25,7 @@ Options:
 __Example Output:__
 
 ```
-$ ./ppp.py generate cneill
+$ ./ppp.py generate cneill openstack/syntribos
 
 Activity on openstack/syntribos since  2016-05-19 12:46:10
 
