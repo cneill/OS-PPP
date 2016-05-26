@@ -9,7 +9,18 @@ pip install -r requirements.txt
 
 __Usage:__
 
-`./ppp.py generate <OpenStack username>`
+```
+OpenStack PPP Generator :)
+
+Usage:
+    ./ppp.py generate <username> [<project>]
+
+Options:
+    generate       Generate a PPP email from the last week
+    <username>     OpenStack username
+    <project>      OpenStack project [default: openstack/syntribos]
+    --help         Display this help message
+```
 
 __Example Output:__
 
