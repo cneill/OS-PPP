@@ -44,6 +44,7 @@ class OSAPI(object):
                  base_url=None, default_delta=None, after=None):
         self.base_url = base_url if base_url else self.base_url
         self.user_search = urllib.quote(user_id if user_id else username)
+        self.project_name = project_name if project_name else self.project_name
         self.project_search = urllib.quote(
             project_name if project_name else self.project_name, safe="")
         self.default_delta = (
@@ -175,7 +176,7 @@ def generate_PPP(OSA):
         "open_cr_deletion": 0
     }
 
-    print "Activity since ",
+    print "Activity on {0} since ".format(OSA.project_name),
     print_local_time(OSA.after.strftime("%Y-%m-%d %H:%M:%S"))
     print
     print "Merged change requests owned by {0}:\n".format(OSA.user_obj["name"])
@@ -219,7 +220,8 @@ def generate_PPP(OSA):
     print "Total open CRs: {0}".format(counts["open_crs"])
     total_insertions = lines["merged_cr_insertion"] + lines["code_review_insertion"]
     total_deletions = lines["merged_cr_deletion"] + lines["code_review_deletion"]
-    print "Total merged line counts: +{0} -{1}".format(total_insertions, total_deletions)
+    print "Total merged lines: +{0} -{1}".format(total_insertions, total_deletions)
+    print "Total unmerged lines: +{0} -{1}".format(lines["open_cr_insertion"], lines["open_cr_deletion"])
 
 
 def main(args):
