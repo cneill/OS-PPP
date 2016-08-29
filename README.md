@@ -13,12 +13,13 @@ __Usage:__
 OpenStack PPP Generator :)
 
 Usage:
-    ./ppp.py generate <username> [<project>]
+    ./ppp.py [-v] generate <username> [<project>]
 
 Options:
     generate       Generate a PPP email from the last week
     <username>     OpenStack username
     <project>      OpenStack project [default: openstack/syntribos]
+    --verbose, -v  Verbose output
     --help         Display this help message
 ```
 
@@ -27,56 +28,71 @@ __Example Output:__
 ```
 $ ./ppp.py generate cneill openstack/syntribos
 
-Activity on openstack/syntribos since  2016-05-19 12:46:10
+Activity on openstack/syntribos since  2016-08-22 18:23:52
 
 Merged change requests owned by Charles Neill:
 
+- Minor fixup to readme
+        URL: https://review.openstack.org/#/c/360132
+        Last updated:  2016-08-25 15:33:28
+- Refresh readme
+        URL: https://review.openstack.org/#/c/360123
+        Last updated:  2016-08-24 19:15:40
+- Fixes a bug in "excluded tests"
+        URL: https://review.openstack.org/#/c/353784
+        Last updated:  2016-08-24 18:25:58
 
-Lines: +0 -0
+Lines: +88 -48
 
 ================================================================================
 Merged changes code reviewed by Charles Neill:
 
-- Fix typo in authenticate_v3 parameter
-	URL: https://review.openstack.org/#/c/321205
-	Last updated:  2016-05-25 17:38:38
-- Added SSL test case
-	URL: https://review.openstack.org/#/c/318922
-	Last updated:  2016-05-24 19:44:28
-- Validate_length now checks status code
-	URL: https://review.openstack.org/#/c/320561
-	Last updated:  2016-05-24 17:36:10
-- Started adding docstrings to extensions
-	URL: https://review.openstack.org/#/c/317123
-	Last updated:  2016-05-24 12:58:26
-- Removed all_attacks
-	URL: https://review.openstack.org/#/c/318767
-	Last updated:  2016-05-19 17:07:40
-- Modified buffer overflow attack
-	URL: https://review.openstack.org/#/c/318207
-	Last updated:  2016-05-19 16:13:11
-- Modified integer overflow tests
-	URL: https://review.openstack.org/#/c/318245
-	Last updated:  2016-05-19 16:13:03
-- Added CORS Header testcase
-	URL: https://review.openstack.org/#/c/317147
-	Last updated:  2016-05-19 16:11:34
+- Modifying log file path
+        URL: https://review.openstack.org/#/c/362427
+        Last updated:  2016-08-29 18:22:09
+- Minor nit in progress display
+        URL: https://review.openstack.org/#/c/362484
+        Last updated:  2016-08-29 18:17:34
 
-Lines: +256 -1226
+...
+
+Lines: +894 -5984
 
 ================================================================================
-Recent open change requests from Charles Neill:
+Unmerged changes from Charles Neill:
 
-- Add exception/signal handling to HTTP client
-	URL: https://review.openstack.org/#/c/317633
-	Last updated:  2016-05-19 18:49:21
+- Adds relative paths for templates
+        URL: https://review.openstack.org/#/c/362460
+        Last updated:  2016-08-29 18:22:42
+        Owner: Charles Neill
+        Jenkins: +1 (Works for me)
+        Code Review Status:  0 (No score)
+        Merge status: MERGEABLE
+- Removing "config-dir", modifying "config-file"
+        URL: https://review.openstack.org/#/c/348589
+        Last updated:  2016-08-29 18:22:17
+        Owner: Charles Neill
+        Jenkins: -1 (Doesn't seem to work)
+        Code Review Status:  0 (No score)
+        Merge status: MERGE CONFLICT
 
-Lines: +300 -13
+Lines: +178 -30
 
 ================================================================================
-Total merged CRs: 0
-Total code reviews: 8
-Total open CRs: 1
-Total merged lines: +256 -1226
-Total unmerged lines: +300 -13
+Unmerged changes code reviewed by Charles Neill:
+
+- Fixed runner time log
+        URL: https://review.openstack.org/#/c/362480
+        Last updated:  2016-08-29 17:49:21
+        Owner: Michael Dong
+        Jenkins: +1 (Works for me)
+        Code Review Status: -1 (This patch needs further work before it can be merged)
+        Merge status: MERGEABLE
+================================================================================
+Total merged CRs: 3
+Total code reviews: 13
+Total code review comments: 42
+Total open CRs: 2
+Total merged lines: +982 -6032
+Total unmerged lines: +178 -30
 ```
